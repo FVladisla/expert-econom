@@ -37,8 +37,38 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
                     Новый курс
                 </button>
             </div>
-            
+            <!-- Список курсов -->
+            <div class="courses-list" style="flex: 1; overflow-y: auto; padding: 10px;">
+                <div class="course-item" style="padding: 12px 15px; border-radius: 4px; margin-bottom: 8px; background: rgba(52, 152, 219, 0.1); border-left: 3px solid var(--accent_blue); cursor: pointer;"
+                     onmouseover="this.style.backgroundColor='rgba(52, 152, 219, 0.15)'"
+                     onmouseout="this.style.backgroundColor='rgba(52, 152, 219, 0.1)'">
+                    <div style="font-weight: 500; color: var(--accent_blue);">Экономика предприятия</div>
+                    <div style="font-size: 12px; color: var(--gray); margin-top: 2px;">Изменен: 12.12.2023</div>
+                </div>
+                
+                <div class="course-item" style="padding: 12px 15px; border-radius: 4px; margin-bottom: 8px; background: white; border: 1px solid rgba(0,0,0,0.1); cursor: pointer;"
+                     onmouseover="this.style.backgroundColor='#f5f5f5'"
+                     onmouseout="this.style.backgroundColor='white'">
+                    <div style="font-weight: 500; color: var(--primary);">Маркетинг для начинающих</div>
+                    <div style="font-size: 12px; color: var(--gray); margin-top: 2px;">Изменен: 10.12.2023</div>
+                </div>
+                
+                <!-- Пустой шаблон для новых курсов -->
+                <div class="course-item-template" style="display: none; padding: 12px 15px; border-radius: 4px; margin-bottom: 8px; background: white; border: 1px solid rgba(0,0,0,0.1); cursor: pointer;"
+                     onmouseover="this.style.backgroundColor='#f5f5f5'"
+                     onmouseout="this.style.backgroundColor='white'">
+                    <div style="font-weight: 500; color: var(--primary);"></div>
+                    <div style="font-size: 12px; color: var(--gray); margin-top: 2px;">Только что создан</div>
+                </div>
+            </div>
+            <!-- Статистика -->
+            <div style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.1); background: #f9f9f9;">
+                <div style="font-size: 14px; color: var(--gray);">Всего курсов: <span style="color: var(--primary); font-weight: 500;">2</span></div>
+            </div>
 
+
+
+            
         </div>
     </div>   
             
