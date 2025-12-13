@@ -18,6 +18,30 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
         </h1>
         <p style="color: var(--gray); margin: 0;">Создавайте и редактируйте курсы для вашей платформы</p>
     </div>
+    <!-- Основная сетка -->
+    <div class="constructor-grid" style="display: grid; grid-template-columns: 300px 1fr; gap: 30px; min-height: 600px;">
+        
+        <!-- Левая панель - список курсов/разделов -->
+        <div class="constructor-sidebar" style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column;">
+            
+            <!-- Заголовок панели -->
+            <div style="padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                <h3 style="margin: 0 0 15px 0; color: var(--primary);">Ваши курсы</h3>
+                <button class="btn-new-course" style="width: 100%; padding: 10px 15px; background: var(--accent_blue); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background 0.3s;"
+                        onmouseover="this.style.backgroundColor='#2980b9'"
+                        onmouseout="this.style.backgroundColor='var(--accent_blue)'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="vertical-align: middle; margin-right: 8px;">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Новый курс
+                </button>
+            </div>
+            
+
+        </div>
+    </div>   
+            
 
 </div>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
