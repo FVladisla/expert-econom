@@ -449,5 +449,393 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
     }
 }
 </style>
-
+<script>
+// Базовый JavaScript для функциональности конструктора
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. Drag & Drop для модулей
+    const modulesContainer = document.getElementById('modules-container');
+    const draggables = document.querySelectorAll('.draggable');
+    let draggedItem = null;
+    
+    // События для перетаскивания
+    draggables.forEach(item => {
+        item.addEventListener('dragstart', function(e) {
+            draggedItem = this;
+            setTimeout(() => {
+                this.classList.add('dragging');
+            }, 0);
+        });
+        
+        item.addEventListener('dragend', function() {
+            this.classList.remove('dragging');
+            draggedItem = null;
+        });
+    });
+    
+    // События для контейнера
+    modulesContainer.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('drag-over');
+        
+        const afterElement = getDragAfterElement(this, e.clientY);
+        if (afterElement == null) {
+            this.appendChild(draggedItem);
+        } else {
+            this.insertBefore(draggedItem, afterElement);
+        }
+    });
+    
+    modulesContainer.addEventListener('dragleave', function() {
+        this.classList.remove('drag-over');
+    });
+    
+    modulesContainer.addEventListener('drop', function() {
+        this.classList.remove('drag-over');
+        updateModuleNumbers();
+    });
+    
+    // Функция для определения позиции вставки
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+        
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+    
+    // Обновление нумерации модулей
+    function updateModuleNumbers() {
+        const modules = document.querySelectorAll('.module-item:not(.module-item-template)');
+        modules.forEach((module, index) => {
+            const title = module.querySelector('h4');
+            if (title) {
+                const currentText = title.textContent;
+                const newTitle = currentText.replace(/Модуль \d+:/, `Модуль ${index + 1}:`);
+                title.textContent = newTitle;
+            }
+        });
+        
+        // Обновляем счетчик
+        document.getElementById('modules-count').textContent = `${modules.length} модулей`;
+    }
+    
+    // 2. Добавление нового модуля
+    document.querySelector('.btn-add-module').addEventListener('click', function() {
+        const template = document.querySelector('.module-item-template').cloneNode(true);
+        template.style.display = 'block';
+        template.classList.add('draggable');
+        template.draggable = true;
+        
+        // Добавляем события для кнопок
+        template.querySelector('.btn-module-edit').addEventListener('click', editModule);
+        template.querySelector('.btn-module-delete').addEventListener('click', deleteModule);
+        template.querySelector('.btn-add-lesson').addEventListener('click', addLessonToModule);
+        template.querySelector('.drag-handle').addEventListener('mousedown', dragHandleMouseDown);
+        
+        modulesContainer.insertBefore(template, modulesContainer.querySelector('.btn-add-module') ? 
+            modulesContainer.querySelector('.btn-add-module') : null);
+        
+        updateModuleNumbers();
+        
+        // Фокус на редактирование названия
+        setTimeout(() => {
+            template.querySelector('h4').textContent = `Модуль ${document.querySelectorAll('.module-item:not(.module-item-template)').length}: Новый модуль`;
+            editModule.call(template.querySelector('.btn-module-edit'));
+        }, 100);
+    });
+    
+    // 3. Удаление модуля
+    function deleteModule() {
+        const module = this.closest('.module-item');
+        if (confirm('Удалить этот модуль? Все уроки внутри также будут удалены.')) {
+            module.remove();
+            updateModuleNumbers();
+        }
+    }
+    
+    // 4. Редактирование модуля
+    function editModule() {
+        const module = this.closest('.module-item');
+        const titleElement = module.querySelector('h4');
+        const currentTitle = titleElement.textContent;
+        
+        // Создаем поле ввода
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentTitle;
+        input.style.cssText = 'font-size: 16px; font-weight: bold; padding: 5px; border: 1px solid var(--accent_blue); border-radius: 3px; width: 100%;';
+        
+        // Заменяем заголовок полем ввода
+        titleElement.replaceWith(input);
+        input.focus();
+        input.select();
+        
+        // Сохраняем по Enter или потере фокуса
+        function saveTitle() {
+            const newTitle = input.value.trim() || 'Новый модуль';
+            const newH4 = document.createElement('h4');
+            newH4.style.margin = '0';
+            newH4.style.color = 'var(--primary)';
+            newH4.textContent = newTitle;
+            
+            input.replaceWith(newH4);
+        }
+        
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                saveTitle();
+            }
+        });
+        
+        input.addEventListener('blur', saveTitle);
+    }
+    
+    // 5. Добавление урока в модуль
+    function addLessonToModule() {
+        const module = this.closest('.module-item');
+        const moduleItems = module.querySelector('.module-items') || (function() {
+            const div = document.createElement('div');
+            div.className = 'module-items';
+            this.insertBefore(div, this.querySelector('.btn-add-lesson'));
+            return div;
+        }.call(this));
+        
+        const lessonDiv = document.createElement('div');
+        lessonDiv.className = 'lesson-item';
+        lessonDiv.style.cssText = 'padding: 10px 15px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center;';
+        
+        // Создаем структуру урока
+        lessonDiv.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3498db" style="margin-right: 10px;">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span style="flex: 1;">Новый урок</span>
+            <select style="margin-right: 10px; padding: 3px 8px; border: 1px solid #ddd; border-radius: 3px; font-size: 12px;">
+                <option value="theory">Теория</option>
+                <option value="practice">Практика</option>
+            </select>
+            <button style="background: none; border: none; color: var(--gray); cursor: pointer; font-size: 12px;">✎</button>
+        `;
+        
+        // Добавляем обработчик для редактирования
+        lessonDiv.querySelector('button').addEventListener('click', function() {
+            const span = lessonDiv.querySelector('span');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = span.textContent;
+            input.style.cssText = 'flex: 1; padding: 3px 5px; border: 1px solid var(--accent_blue); border-radius: 3px;';
+            
+            span.replaceWith(input);
+            input.focus();
+            input.select();
+            
+            function saveLessonName() {
+                const newName = input.value.trim() || 'Новый урок';
+                const newSpan = document.createElement('span');
+                newSpan.style.flex = '1';
+                newSpan.textContent = newName;
+                
+                input.replaceWith(newSpan);
+            }
+            
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') saveLessonName();
+            });
+            
+            input.addEventListener('blur', saveLessonName);
+        });
+        
+        // Обновляем иконку в зависимости от типа
+        lessonDiv.querySelector('select').addEventListener('change', function() {
+            const icon = lessonDiv.querySelector('svg');
+            if (this.value === 'theory') {
+                icon.innerHTML = '<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>';
+                icon.style.stroke = '#3498db';
+            } else {
+                icon.innerHTML = '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>';
+                icon.style.stroke = '#e74c3c';
+            }
+        });
+        
+        moduleItems.appendChild(lessonDiv);
+        
+        // Фокус на редактирование названия
+        setTimeout(() => {
+            lessonDiv.querySelector('button').click();
+        }, 100);
+    }
+    
+    // 6. Создание нового курса
+    document.querySelector('.btn-new-course').addEventListener('click', function() {
+        const template = document.querySelector('.course-item-template').cloneNode(true);
+        template.style.display = 'block';
+        
+        // Запрашиваем название курса
+        const courseName = prompt('Введите название нового курса:', 'Новый курс');
+        if (!courseName) return;
+        
+        template.querySelector('div:first-child').textContent = courseName;
+        template.querySelector('div:last-child').textContent = 'Только что создан';
+        
+        // Добавляем в список
+        document.querySelector('.courses-list').insertBefore(template, document.querySelector('.courses-list').firstChild);
+        
+        // Выделяем новый курс
+        document.querySelectorAll('.course-item').forEach(item => {
+            item.style.background = 'white';
+            item.style.borderLeft = '1px solid rgba(0,0,0,0.1)';
+        });
+        
+        template.style.background = 'rgba(52, 152, 219, 0.1)';
+        template.style.borderLeft = '3px solid var(--accent_blue)';
+        
+        // Обновляем заголовок редактора
+        document.getElementById('course-title').textContent = courseName;
+        
+        // Очищаем редактор для нового курса
+        clearEditorForNewCourse(courseName);
+    });
+    
+    function clearEditorForNewCourse(courseName) {
+        // Обновляем поля формы
+        document.querySelector('input[type="text"]').value = courseName;
+        document.querySelector('textarea').value = '';
+        document.querySelector('input[type="number"]').value = '10';
+        
+        // Очищаем модули
+        document.querySelectorAll('.module-item:not(.module-item-template)').forEach(module => {
+            module.remove();
+        });
+        
+        // Обновляем счетчик
+        document.getElementById('modules-count').textContent = '0 модулей';
+    }
+    
+    // 7. Выбор курса из списка
+    document.querySelectorAll('.course-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Снимаем выделение со всех
+            document.querySelectorAll('.course-item').forEach(i => {
+                i.style.background = 'white';
+                i.style.borderLeft = '1px solid rgba(0,0,0,0.1)';
+            });
+            
+            // Выделяем текущий
+            this.style.background = 'rgba(52, 152, 219, 0.1)';
+            this.style.borderLeft = '3px solid var(--accent_blue)';
+            
+            // Обновляем заголовок редактора
+            const courseName = this.querySelector('div:first-child').textContent;
+            document.getElementById('course-title').textContent = courseName;
+            
+            // Здесь будет загрузка данных курса
+            console.log('Загрузка курса:', courseName);
+        });
+    });
+    
+    // 8. Сохранение курса
+    document.querySelector('.btn-save').addEventListener('click', function() {
+        const courseTitle = document.querySelector('#course-title').textContent;
+        const button = this;
+        
+        // Имитация сохранения
+        button.textContent = 'Сохранение...';
+        button.style.background = '#f39c12';
+        
+        setTimeout(() => {
+            button.textContent = 'Сохранено!';
+            button.style.background = '#27ae60';
+            
+            setTimeout(() => {
+                button.textContent = 'Сохранить курс';
+                button.style.background = '#27ae60';
+            }, 1500);
+        }, 1000);
+        
+        // Здесь будет AJAX запрос на сохранение
+        console.log('Сохранение курса:', courseTitle);
+        saveCourseToBitrix();
+    });
+    
+    function saveCourseToBitrix() {
+        // Сбор данных формы
+        const courseData = {
+            title: document.querySelector('input[type="text"]').value,
+            description: document.querySelector('textarea').value,
+            duration: document.querySelector('input[type="number"]').value,
+            category: document.querySelector('.form-select').value,
+            complexity: document.querySelectorAll('.form-select')[1].value,
+            status: document.querySelectorAll('.form-select')[2].value,
+            
+            // Сбор модулей
+            modules: Array.from(document.querySelectorAll('.module-item:not(.module-item-template)')).map(module => {
+                return {
+                    title: module.querySelector('h4').textContent,
+                    lessons: Array.from(module.querySelectorAll('.lesson-item')).map(lesson => {
+                        return {
+                            title: lesson.querySelector('span').textContent,
+                            type: lesson.querySelector('select').value
+                        };
+                    })
+                };
+            }),
+            
+            // Настройки публикации
+            publishToBitrix: document.querySelectorAll('input[type="checkbox"]')[0].checked,
+            linkTheory: document.querySelectorAll('input[type="checkbox"]')[1].checked,
+            linkPractice: document.querySelectorAll('input[type="checkbox"]')[2].checked
+        };
+        
+        console.log('Данные для отправки в Битрикс:', courseData);
+        // Здесь будет AJAX запрос к Битрикс API
+    }
+    
+    // 9. Сворачивание/разворачивание секций
+    document.querySelectorAll('.section-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const section = this.closest('.section-card');
+            const body = section.querySelector('.section-body');
+            
+            if (body.style.display === 'none') {
+                body.style.display = 'block';
+                this.textContent = '▼';
+            } else {
+                body.style.display = 'none';
+                this.textContent = '▶';
+            }
+        });
+    });
+    
+    // 10. Обработчики для существующих модулей
+    document.querySelectorAll('.btn-module-edit').forEach(btn => {
+        btn.addEventListener('click', editModule);
+    });
+    
+    document.querySelectorAll('.btn-module-delete').forEach(btn => {
+        btn.addEventListener('click', deleteModule);
+    });
+    
+    document.querySelectorAll('.btn-add-lesson').forEach(btn => {
+        btn.addEventListener('click', addLessonToModule);
+    });
+    
+    // 11. Обработчик для drag handle
+    function dragHandleMouseDown() {
+        // Уже обрабатывается через draggable
+    }
+    
+    // Инициализация
+    updateModuleNumbers();
+    
+    console.log('Конструктор курсов инициализирован. Готов к работе с Битрикс!');
+}); 
+</script>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
