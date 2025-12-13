@@ -65,10 +65,88 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
             <div style="padding: 15px; border-top: 1px solid rgba(0,0,0,0.1); background: #f9f9f9;">
                 <div style="font-size: 14px; color: var(--gray);">Всего курсов: <span style="color: var(--primary); font-weight: 500;">2</span></div>
             </div>
-
-
-
+        </div>
+        <!-- Правая панель - редактор курса -->
+        <div class="constructor-main" style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column;">
             
+            <!-- Заголовок редактора -->
+            <div style="padding: 20px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                <h2 style="margin: 0 0 5px 0; color: var(--primary); display: flex; align-items: center; justify-content: space-between;">
+                    <span>Редактирование курса: <span id="course-title">Экономика предприятия</span></span>
+                    <button class="btn-save" style="padding: 8px 20px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; transition: background 0.3s;"
+                            onmouseover="this.style.backgroundColor='#219955'"
+                            onmouseout="this.style.backgroundColor='#27ae60'">
+                        Сохранить курс
+                    </button>
+                </h2>
+                <div style="font-size: 14px; color: var(--gray);">ID в Битрикс: 145</div>
+            </div>
+            <!-- Форма редактирования -->
+            <div class="editor-content" style="flex: 1; overflow-y: auto; padding: 20px;">
+                
+                <!-- Блок 1: Основная информация -->
+                <div class="section-card" style="margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden;">
+                    <div class="section-header" style="background: #f9f9f9; padding: 15px 20px; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12" y2="8"></line>
+                            </svg>
+                            Основная информация
+                        </h3>
+                        <span class="section-toggle" style="cursor: pointer; color: var(--accent_blue);">▼</span>
+                    </div>
+                    <div class="section-body" style="padding: 20px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Название курса *</label>
+                                <input type="text" class="form-input" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px;"
+                                       value="Экономика предприятия: от теории к практике">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Категория</label>
+                                <select class="form-select" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px; background: white;">
+                                    <option>Экономика и финансы</option>
+                                    <option>Маркетинг</option>
+                                    <option>Программирование</option>
+                                    <option>Дизайн</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Описание курса</label>
+                            <textarea class="form-textarea" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px; min-height: 100px; resize: vertical;">Этот курс научит вас принимать финансовые решения на основе реальных кейсов российских компаний. Вы освоите ключевые понятия экономики предприятия и научитесь применять их на практике.</textarea>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px;">
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Длительность (часов)</label>
+                                <input type="number" class="form-input" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px;"
+                                       value="20" min="1" max="500">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Сложность</label>
+                                <select class="form-select" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px; background: white;">
+                                    <option>Начальный</option>
+                                    <option selected>Средний</option>
+                                    <option>Продвинутый</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: var(--dark);">Статус</label>
+                                <select class="form-select" style="width: 100%; padding: 10px 15px; border: 1px solid rgba(0,0,0,0.2); border-radius: 4px; font-size: 14px; background: white;">
+                                    <option selected>В разработке</option>
+                                    <option>Активный</option>
+                                    <option>Скрытый</option>
+                                    <option>Архивный</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>   
             
