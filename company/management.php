@@ -1,48 +1,170 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+$APPLICATION->SetPageProperty("description", "Руководство компании Эксперт Эконом");
+$APPLICATION->SetPageProperty("keywords", "Руководство, Ланщаков Владислав");
 $APPLICATION->SetTitle("Руководство");
 ?>
-<p> 							Успешное развитие бизнеса &ndash; во многом результат квалифицированной работы руководства. 							<b>&laquo;Мебельная компания&raquo;</b> на мебельном рынке уже 18 лет. За это время Компания 							не только сохранила, но и упрочила лидирующие позиции среди ведущих игроков мебельного 							рынка. 						</p>
- 						
-<p> 							<b>&laquo;Мебельная компания&raquo;</b> из года в год расширяет ассортимент выпускаемой продукции, 							наращивает темпы и объемы производства, увеличивает производственные и складские 							площади, развивает отношения с партнерами со всех регионов страны и налаживает связи 							с зарубежными партнерами. В большой степени это заслуга хорошо подготовленного руководящего 							состава и его грамотной политики. 						</p>
- 						 						
-<h3>Собственник Компании &laquo;Мебельная компания&raquo;</h3>
- 						 						
-<table cellspacing="10"> 							
-  <tbody>
-    <tr> 								<td valign="top" colspan="2"> 									Колесников Виктор Федорович 								</td> 							</tr>
-   							
-    <tr> 								<td width="20%" valign="top"> 									<img height="200" width="154" src="/upload/kolesnikov.jpg" title="Колесников Виктор Федорович " alt="Колесников Виктор Федорович " /> 								</td> 								<td width="60%" valign="top"> 									Родился 3 сентября 1964 года.
-        <br />
-       Образование: закончил авиационный факультет Воронежского 									государственного политехнического института. В 1994 году прошел обучение по программе 									&laquo;Подготовка малого и среднего бизнеса&raquo; в США.
-        <br />
-       В настоящее время Виктор Федорович 									возглавляет Управляющую компанию, которая координирует деятельность предприятий, 									входящих в Группу Компаний <b>&laquo;Мебельная компания&raquo;</b>. 								</td> 							</tr>
-   						</tbody>
-</table>
- 						
-<h3>Генеральный директор &laquo;Мебельной компании&raquo;</h3>
- 						
-<table cellspacing="10"> 							
-  <tbody>
-    <tr> 								<td valign="top" colspan="2"> 									Ратченко Александр Петрович 								</td> 							</tr>
-   							
-    <tr> 								<td width="20%" valign="top"> 									<img height="200" width="154" src="/upload/ratchenko.jpg" title="Ратченко Александр Петрович " alt="Ратченко Александр Петрович " /> 								</td> 								<td width="60%" valign="top"> 									Родился 5 июня 1962 года.
-        <br />
-       Образование: Воронежский политехнический институт 									по специальности инженер-технолог; программа &laquo;Эффективное развитие производства&raquo; 									(США).
-        <br />
-       В <b>&laquo;Мебельной компании&raquo;</b> Сергей Фомич с 1994 года. За это время прошел 									путь от начальника цеха до генерального директора предприятия. 								</td> 							</tr>
-   						</tbody>
-</table>
- 						
-<h3>Заместитель генерального директора Управляющей компании</h3>
- 						 						 							
-<table cellspacing="10">
-  <tbody>
-    <tr> 								<td valign="top" colspan="2"> 									Роговой Андрей Владимирович 								</td> 							</tr>
-   							
-    <tr> 								<td width="20%" valign="top"> 									<img height="200" width="154" src="/upload/horn.jpg" title="Роговой Андрей Владимирович" alt="Роговой Андрей Владимирович" /> 								</td> 								<td width="60%" valign="top"> 									Образование: факультет радиотехники Воронежского государственного технического университета.
-        <br />
-       									В Компании с 1 июня 2000 года. 								</td></tr>
-  </tbody>
-</table>
+<header class="leadership-header">
+  <div class="container">
+      <h1>Наше руководство</h1>
+      <p class="subtitle">Профессионалы, которые превращают образовательные технологии в реальные бизнес-результаты</p>
+  </div>
+</header>
+<section class="leadership-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Команда основателей</h2>
+            </div>
+            
+            <!-- Карточки руководителей -->
+            <div class="team-grid">
+                <!-- Основатель -->
+                <div class="team-card">
+                    <div class="team-image" style="background-image: url('/upload/photo_5211135343120739091_x.jpg');"></div>
+                    <div class="team-content">
+                        <h3 class="team-name">Владислав Ланщаков</h3>
+                        <p class="team-position">Основатель и генеральный директор</p>
+                        <p class="team-bio">Эксперт в экономике предприятия с 10-летним опытом в консалтинге. Создал платформу, чтобы решить проблему отсутствия практических знаний у выпускников.</p>
+                        <div class="team-social">
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/telegram.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/wha.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/insta.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-image" style="background-image: url('/upload/_DSC8276 (1).jpg');"></div>
+                    <div class="team-content">
+                        <h3 class="team-name">Татьяна Левченко</h3>
+                        <p class="team-position">Доцент кафедры ММиЦРБС, кандидат экономических наук</p>
+                        <p class="team-bio">Эксперт в экономике предприятия, составитель многих методических книг, идейный вдохновитель</p>
+                        <div class="team-social">
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/telegram.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/wha.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            <?
+                              $APPLICATION->IncludeFile(
+                                SITE_DIR."include/insta.php",
+                                Array(),
+                                Array("MODE"=>"html")
+                              );
+                            ?>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Технический директор
+                <div class="team-card">
+                    <div class="team-image" style="background-image: url('https://example.com/cto.jpg');"></div>
+                    <div class="team-content">
+                        <h3 class="team-name">Алексей Семёнов</h3>
+                        <p class="team-position">Технический директор</p>
+                        <p class="team-bio">Архитектор платформы с опытом в EdTech проектах. Отвечает за разработку и интеграцию бизнес-симуляторов с корпоративными системами.</p>
+                        <div class="team-social">
+                            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                Директор по контенту 
+                <div class="team-card">
+                    <div class="team-image" style="background-image: url('https://example.com/content-director.jpg');"></div>
+                    <div class="team-content">
+                        <h3 class="team-name">Елена Ковалёва</h3>
+                        <p class="team-position">Директор по образовательным технологиям</p>
+                        <p class="team-bio">Бывший декан экономического факультета НГУ. Курирует методологию курсов и сотрудничество с вузами.</p>
+                        <div class="team-social">
+                            <a href="#" class="social-icon"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-researchgate"></i></a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            
+            <!-- Философия управления -->
+            <div class="philosophy-block">
+                <h3 class="philosophy-title">Наши принципы управления</h3>
+                <div class="philosophy-content">
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <h4>Ориентация на результат</h4>
+                            <p>Каждый курс должен давать измеримые навыки. Мы оцениваем успех по карьерному росту наших студентов.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h4>Культура доверия</h4>
+                            <p>Децентрализованные команды с полной ответственностью за свои направления. Никакого микроменеджмента.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <h4>Инновации в ДНК</h4>
+                            <p>20% рабочего времени сотрудники посвящают экспериментальным проектам в образовательных технологиях.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="philosophy-item">
+                        <div class="philosophy-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div>
+                            <h4>Социальная миссия</h4>
+                            <p>30% нашего контента остается бесплатным. Мы верим, что знания должны быть доступны.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Блок CTA -->
+            <div style="text-align: center; margin-top: 60px;">
+                <h3>Хотите присоединиться к нашей команде?</h3>
+                <p>Мы всегда в поиске талантливых преподавателей и разработчиков</p>
+                <a href="/company/vacancies.php" style="display: inline-block; margin-top: 20px; background: var(--secondary); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold;" alt='Вакансии'>Посмотреть вакансии</a>
+            </div>
+        </div>
+    </section>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
