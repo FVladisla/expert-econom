@@ -327,14 +327,127 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>   
-            
-
+    </div>         
 </div>
+
+<style>
+#workarea{
+    width: 100% !important;
+}
+#sidebar{
+    display: none !important;
+}
+/* Общие стили для конструктора */
+.constructor-container {
+    --primary: #2c3e50;
+    --accent_blue: #3498db;
+    --dark: #34495e;
+    --gray: #7f8c8d;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+}
+
+/* Drag & Drop стили */
+.draggable {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.drag-handle {
+    cursor: grab;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.drop-zone {
+    min-height: 100px;
+    transition: all 0.3s;
+}
+
+.drop-zone.drag-over {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-color: var(--accent_blue);
+}
+
+/* Анимации */
+.course-item, .module-item, .lesson-item {
+    transition: all 0.3s ease;
+}
+
+.form-input, .form-select, .form-textarea {
+    transition: border-color 0.3s;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent_blue);
+}
+
+/* Модальные окна (будут использоваться позже) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .constructor-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .constructor-sidebar {
+        margin-bottom: 20px;
+    }
+    
+    .section-body > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .constructor-header h1 {
+        font-size: 24px;
+    }
+    
+    .module-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .module-header div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+</style>
+
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
