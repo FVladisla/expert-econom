@@ -146,6 +146,191 @@ $APPLICATION->SetTitle("ЭкспертЭконом");
                         </div>
                     </div>
                 </div>
+                <!-- Блок 2: Структура курса (Drag & Drop) -->
+                <div class="section-card" style="margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden;">
+                    <div class="section-header" style="background: #f9f9f9; padding: 15px 20px; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="3" x2="9" y2="21"></line>
+                            </svg>
+                            Структура курса
+                            <span style="margin-left: 10px; font-size: 14px; font-weight: normal; color: var(--gray);" id="modules-count">3 модуля</span>
+                        </h3>
+                        <button class="btn-add-module" style="padding: 6px 15px; background: var(--accent_blue); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.3s;"
+                                onmouseover="this.style.backgroundColor='#2980b9'"
+                                onmouseout="this.style.backgroundColor='var(--accent_blue)'">
+                            + Добавить модуль
+                        </button>
+                    </div>
+                    
+                    <div class="section-body" style="padding: 20px;">
+                        <!-- Drag & Drop контейнер -->
+                        <div class="modules-container" id="modules-container" style="min-height: 300px; padding: 10px; background: #f9f9f9; border-radius: 4px; border: 2px dashed #ddd;">
+                            
+                            <!-- Модуль 1 -->
+                            <div class="module-item draggable" draggable="true" style="background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 15px; overflow: hidden; cursor: move;">
+                                <div class="module-header" style="padding: 15px; background: #f0f7ff; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px; cursor: ns-resize;" class="drag-handle">
+                                            <circle cx="9" cy="5" r="1"></circle>
+                                            <circle cx="9" cy="12" r="1"></circle>
+                                            <circle cx="9" cy="19" r="1"></circle>
+                                            <circle cx="15" cy="5" r="1"></circle>
+                                            <circle cx="15" cy="12" r="1"></circle>
+                                            <circle cx="15" cy="19" r="1"></circle>
+                                        </svg>
+                                        <h4 style="margin: 0; color: var(--primary);">Модуль 1: Основы экономики</h4>
+                                    </div>
+                                    <div>
+                                        <button class="btn-module-edit" style="background: none; border: none; color: var(--accent_blue); cursor: pointer; margin-right: 10px;">✎</button>
+                                        <button class="btn-module-delete" style="background: none; border: none; color: #e74c3c; cursor: pointer;">🗑</button>
+                                    </div>
+                                </div>
+                                <div class="module-body" style="padding: 15px;">
+                                    <div style="font-size: 14px; color: var(--gray); margin-bottom: 10px;">4 урока (2 теории, 2 практики)</div>
+                                    
+                                    <!-- Элементы модуля -->
+                                    <div class="module-items">
+                                        <div class="lesson-item" style="padding: 10px 15px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3498db" style="margin-right: 10px;">
+                                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                            </svg>
+                                            <span style="flex: 1;">Введение в экономику предприятия</span>
+                                            <span style="font-size: 12px; color: var(--gray); margin-right: 10px;">Теория</span>
+                                            <button style="background: none; border: none; color: var(--gray); cursor: pointer; font-size: 12px;">✎</button>
+                                        </div>
+                                        
+                                        <div class="lesson-item" style="padding: 10px 15px; background: white; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" style="margin-right: 10px;">
+                                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                                <polyline points="2 17 12 22 22 17"></polyline>
+                                                <polyline points="2 12 12 17 22 12"></polyline>
+                                            </svg>
+                                            <span style="flex: 1;">Практика: Расчет себестоимости</span>
+                                            <span style="font-size: 12px; color: var(--gray); margin-right: 10px;">Практика</span>
+                                            <button style="background: none; border: none; color: var(--gray); cursor: pointer; font-size: 12px;">✎</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn-add-lesson" style="width: 100%; padding: 8px; margin-top: 10px; background: #f5f5f5; border: 1px dashed #ccc; border-radius: 4px; color: var(--gray); cursor: pointer; font-size: 14px;"
+                                            onmouseover="this.style.backgroundColor='#e9e9e9'"
+                                            onmouseout="this.style.backgroundColor='#f5f5f5'">
+                                        + Добавить урок
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Модуль 2 -->
+                            <div class="module-item draggable" draggable="true" style="background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 15px; overflow: hidden; cursor: move;">
+                                <div class="module-header" style="padding: 15px; background: #f0f7ff; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px; cursor: ns-resize;" class="drag-handle">
+                                            <circle cx="9" cy="5" r="1"></circle>
+                                            <circle cx="9" cy="12" r="1"></circle>
+                                            <circle cx="9" cy="19" r="1"></circle>
+                                            <circle cx="15" cy="5" r="1"></circle>
+                                            <circle cx="15" cy="12" r="1"></circle>
+                                            <circle cx="15" cy="19" r="1"></circle>
+                                        </svg>
+                                        <h4 style="margin: 0; color: var(--primary);">Модуль 2: Финансовый анализ</h4>
+                                    </div>
+                                    <div>
+                                        <button class="btn-module-edit" style="background: none; border: none; color: var(--accent_blue); cursor: pointer; margin-right: 10px;">✎</button>
+                                        <button class="btn-module-delete" style="background: none; border: none; color: #e74c3c; cursor: pointer;">🗑</button>
+                                    </div>
+                                </div>
+                                <div class="module-body" style="padding: 15px;">
+                                    <div style="font-size: 14px; color: var(--gray); margin-bottom: 10px;">3 урока (2 теории, 1 практика)</div>
+                                    <button class="btn-add-lesson" style="width: 100%; padding: 8px; margin-top: 10px; background: #f5f5f5; border: 1px dashed #ccc; border-radius: 4px; color: var(--gray); cursor: pointer; font-size: 14px;"
+                                            onmouseover="this.style.backgroundColor='#e9e9e9'"
+                                            onmouseout="this.style.backgroundColor='#f5f5f5'">
+                                        + Добавить урок
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Шаблон пустого модуля -->
+                            <div class="module-item-template" style="display: none; background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 15px; overflow: hidden; cursor: move;">
+                                <div class="module-header" style="padding: 15px; background: #f0f7ff; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px; cursor: ns-resize;" class="drag-handle">
+                                            <circle cx="9" cy="5" r="1"></circle>
+                                            <circle cx="9" cy="12" r="1"></circle>
+                                            <circle cx="9" cy="19" r="1"></circle>
+                                            <circle cx="15" cy="5" r="1"></circle>
+                                            <circle cx="15" cy="12" r="1"></circle>
+                                            <circle cx="15" cy="19" r="1"></circle>
+                                        </svg>
+                                        <h4 style="margin: 0; color: var(--primary);">Новый модуль</h4>
+                                    </div>
+                                    <div>
+                                        <button class="btn-module-edit" style="background: none; border: none; color: var(--accent_blue); cursor: pointer; margin-right: 10px;">✎</button>
+                                        <button class="btn-module-delete" style="background: none; border: none; color: #e74c3c; cursor: pointer;">🗑</button>
+                                    </div>
+                                </div>
+                                <div class="module-body" style="padding: 15px;">
+                                    <div style="font-size: 14px; color: var(--gray); margin-bottom: 10px;">0 уроков</div>
+                                    <button class="btn-add-lesson" style="width: 100%; padding: 8px; margin-top: 10px; background: #f5f5f5; border: 1px dashed #ccc; border-radius: 4px; color: var(--gray); cursor: pointer; font-size: 14px;">
+                                        + Добавить урок
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; font-size: 14px; color: var(--gray);">
+                            💡 Перетаскивайте модули для изменения порядка. В каждом модуле можно добавлять теоретические и практические уроки.
+                        </div>
+                        <!-- Блок 3: Настройки публикации -->
+                        <div class="section-card" style="margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; overflow: hidden;">
+                            <div class="section-header" style="background: #f9f9f9; padding: 15px 20px; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="margin: 0; color: var(--primary); display: flex; align-items: center;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 10px;">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                    Настройки публикации
+                                </h3>
+                            </div>
+                            <div class="section-body" style="padding: 20px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div>
+                                        <label style="display: flex; align-items: center; margin-bottom: 15px;">
+                                            <input type="checkbox" style="margin-right: 10px;" checked>
+                                            <span style="font-weight: 500; color: var(--dark);">Опубликовать в каталоге Битрикс</span>
+                                        </label>
+                                        <div style="font-size: 13px; color: var(--gray); margin-left: 24px; margin-bottom: 20px;">
+                                            Курс будет добавлен в инфоблок "Курсы" (ID: 5)
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label style="display: flex; align-items: center; margin-bottom: 15px;">
+                                            <input type="checkbox" style="margin-right: 10px;" checked>
+                                            <span style="font-weight: 500; color: var(--dark);">Связать с теорией (ID: 6)</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center;">
+                                            <input type="checkbox" style="margin-right: 10px;" checked>
+                                            <span style="font-weight: 500; color: var(--dark);">Связать с практикой (ID: 5)</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 20px; padding: 15px; background: #f0f7ff; border-radius: 4px; border-left: 4px solid var(--accent_blue);">
+                                    <div style="font-weight: 500; color: var(--primary); margin-bottom: 5px;">Информация о связи с Битрикс:</div>
+                                    <div style="font-size: 13px; color: var(--gray);">
+                                        • Курс будет связан с товаром в каталоге через свойство "COURSE_ID"<br>
+                                        • Теоретические материалы создаются в инфоблоке "Теория" (ID: 6)<br>
+                                        • Практические задания создаются в инфоблоке "Практика" (ID: 5)<br>
+                                        • Связь осуществляется через свойство "LINKED_COURSE"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>   
