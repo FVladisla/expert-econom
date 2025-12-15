@@ -36,13 +36,13 @@
                     </a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="#results" style="display: block; padding: 10px 15px; color: var(--dark); text-decoration: none; border-radius: 4px; transition: all 0.3s;"
+                    <a href="/personal/analytics/" style="display: block; padding: 10px 15px; color: var(--dark); text-decoration: none; border-radius: 4px; transition: all 0.3s;"
                        onmouseover="this.style.backgroundColor='#f5f5f5'" 
                        onmouseout="this.style.backgroundColor='transparent'">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="vertical-align: middle; margin-right: 8px;">
                             <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                         </svg>
-                        Результаты
+                        Аналитика
                     </a>
                 </li>
                 <li>
