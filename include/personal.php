@@ -282,4 +282,196 @@
         margin-bottom: 20px;
     }
 }
+
+/* Стили для системы уведомлений */
+.notifications-wrapper {
+    position: relative;
+}
+
+.notifications-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    position: relative;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.notifications-btn:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e74c3c;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.notifications-dropdown {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notifications-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notifications-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.notifications-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.notifications-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.notification-item.unread {
+    background-color: #f8f9fa;
+}
+
+.notification-item:hover {
+    background-color: #f0f7ff !important;
+}
+
+.notification-icon {
+    transition: transform 0.2s;
+}
+
+.notification-item:hover .notification-icon {
+    transform: scale(1.1);
+}
 </style>
+
+<script>
+// Функция для переключения отображения уведомлений
+function toggleNotifications() {
+    const dropdown = document.querySelector('.notifications-dropdown');
+    const isVisible = dropdown.style.display === 'block';
+    
+    if (isVisible) {
+        dropdown.style.display = 'none';
+    } else {
+        dropdown.style.display = 'block';
+        
+        // Закрытие при клике вне области
+        setTimeout(() => {
+            const closeOnClickOutside = (e) => {
+                if (!dropdown.contains(e.target) && !e.target.closest('.notifications-btn')) {
+                    dropdown.style.display = 'none';
+                    document.removeEventListener('click', closeOnClickOutside);
+                }
+            };
+            document.addEventListener('click', closeOnClickOutside);
+        }, 0);
+    }
+}
+
+// Функция для пометки уведомления как прочитанного
+function markAsRead(notificationId) {
+    // AJAX запрос для пометки как прочитанного
+    fetch('/ajax/notifications/mark_as_read.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: notificationId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Обновляем бейдж
+            const badge = document.querySelector('.notification-badge');
+            const currentCount = parseInt(badge.textContent);
+            if (currentCount > 0) {
+                badge.textContent = currentCount - 1;
+                if (currentCount - 1 === 0) {
+                    badge.style.display = 'none';
+                }
+            }
+            
+            // Помечаем уведомление как прочитанное
+            const notification = document.querySelector(`.notification-item[onclick*="${notificationId}"]`);
+            notification.classList.remove('unread');
+            notification.classList.add('read');
+            
+            // Убираем синюю точку
+            const dot = notification.querySelector('span[style*="background: #3498db"]');
+            if (dot) dot.remove();
+        }
+    });
+}
+
+// Функция для пометки всех уведомлений как прочитанных
+function markAllAsRead() {
+    fetch('/ajax/notifications/mark_all_as_read.php', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Скрываем бейдж
+            document.querySelector('.notification-badge').style.display = 'none';
+            
+            // Помечаем все уведомления как прочитанные
+            document.querySelectorAll('.notification-item').forEach(item => {
+                item.classList.remove('unread');
+                item.classList.add('read');
+                const dot = item.querySelector('span[style*="background: #3498db"]');
+                if (dot) dot.remove();
+            });
+        }
+    });
+}
+
+// Обновление количества уведомлений каждые 30 секунд
+setInterval(() => {
+    fetch('/ajax/notifications/get_count.php')
+    .then(response => response.json())
+    .then(data => {
+        if (data.count !== undefined) {
+            const badge = document.querySelector('.notification-badge');
+            if (data.count > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = data.count > 99 ? '99+' : data.count;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    });
+}, 30000);
+</script>
