@@ -56,6 +56,21 @@
                         Настройки
                     </a>
                 </li>
+                <li>
+                    <a href="/course_creator/" style="display: block; padding: 10px 15px; color: var(--dark); text-decoration: none; border-radius: 4px; transition: all 0.3s;"
+                       onmouseover="this.style.backgroundColor='#f5f5f5'" 
+                       onmouseout="this.style.backgroundColor='transparent'">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <circle cx="7" cy="7" r="2"></circle>
+                            <circle cx="17" cy="7" r="2"></circle>
+                        </svg>
+                        Конструктор курсов
+                    </a>
+                </li>
             </ul>
         </div>
 
