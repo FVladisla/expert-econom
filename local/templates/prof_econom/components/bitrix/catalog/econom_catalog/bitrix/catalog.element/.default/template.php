@@ -3,7 +3,7 @@
 <div class="catalog-detail" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     <div class="catalog-item" style="background: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden;">
         <div class="catalog-item-header" style="padding: 25px; border-bottom: 1px solid rgba(0,0,0,0.05);">
-            <h1 style="color: var(--primary); margin: 0 0 10px 0; font-size: 1.8rem;"><?=$arResult["NAME"]?></h1>
+            <h1 style="color: var(--primary); margin: 0 0 10px 0; font-size: 1.8rem; display: flex; justify-content: center;"><?=$arResult["NAME"]?></h1>
             
             <!-- <?foreach($arResult["PRICES"] as $code=>$arPrice):?>
                 <?if($arPrice["PRINT_VALUE"] > 0):?>
@@ -15,22 +15,23 @@
             <?endforeach;?> -->
             
             <!-- Новая кнопка "Пройти курс" -->
-            <!-- Блок цены и кнопки -->
-            <?$isFreeCourse = ($arResult['PROPERTIES']['TYPE_OF_PRICE']['VALUE_XML_ID'] == 'FREE');?>
             
-            <?if(!$isFreeCourse && !empty($arResult["PRICES"])):?>
-                <?foreach($arResult["PRICES"] as $code=>$arPrice):?>
-                    <?if($arPrice["PRINT_VALUE"] > 0):?>
-                        <div class="catalog-item-price" style="font-size: 1.4rem; color: var(--secondary); margin: 15px 0; font-weight: 700;">
-                            <span style="font-size: 1rem; color: var(--gray);"><?=GetMessage('CR_PRICE')?>:</span> 
-                            <?=$arPrice["PRINT_VALUE"]?>
-                        </div>
-                    <?endif;?>
-                <?endforeach;?>
-            <?endif;?>
             
             <!-- Кнопка в зависимости от типа курса -->
-            <div class="course-actions" style="margin-top: 25px;">
+            <div class="course-actions" style="margin-top: 25px; display: flex; justify-content: space-between; align-items: flex-end;">
+                <!-- Блок цены и кнопки -->
+                <?$isFreeCourse = ($arResult['PROPERTIES']['TYPE_OF_PRICE']['VALUE_XML_ID'] == 'FREE');?>
+                
+                <?if(!$isFreeCourse && !empty($arResult["PRICES"])):?>
+                    <?foreach($arResult["PRICES"] as $code=>$arPrice):?>
+                        <?if($arPrice["PRINT_VALUE"] > 0):?>
+                            <div class="catalog-item-price" style="font-size: 1.4rem; color: var(--secondary); margin: 0; font-weight: 700; background: transparent;">
+                                <span style="font-size: 1rem; color: var(--gray);"><?=GetMessage('CR_PRICE')?>:</span> 
+                                <?=$arPrice["PRINT_VALUE"]?>
+                            </div>
+                        <?endif;?>
+                    <?endforeach;?>
+                <?endif;?>
                 <?if($isFreeCourse):?>
                     <a href="/learning/<?=$arResult['ID']?>/" 
                        class="start-course-btn" 

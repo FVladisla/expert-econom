@@ -76,7 +76,7 @@ IncludeTemplateLangFile(__FILE__);
 		
 		<div id="content">
 		
-			<div id="sidebar">
+			<!-- <div id="sidebar">
 				<?$APPLICATION->IncludeComponent("bitrix:menu", "left", array(
 					"ROOT_MENU_TYPE" => "left",
 					"MENU_CACHE_TYPE" => "A",
@@ -160,7 +160,7 @@ IncludeTemplateLangFile(__FILE__);
 					</div>
 				</div>
 
-				<!-- <div class="information-block">
+				<div class="information-block">
 					<div class="top"></div>
 					<div class="information-block-inner">
 						<h3><?=GetMessage('CFT_FEATURED')?></h3>
@@ -173,8 +173,8 @@ IncludeTemplateLangFile(__FILE__);
 							?>						
 					</div>
 					<div class="bottom"></div>
-				</div> -->
-			</div>
+				</div> 
+			</div> -->
 		
 			<div id="workarea">
 				

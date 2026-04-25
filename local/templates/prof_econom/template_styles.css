@@ -81,7 +81,8 @@ a.feedback-icon { width: 14px; height: 10px;}
 
 #workarea { 
 	/* padding-top:10px;  */
-	width:612px; float: right;}
+	width:100%;
+	 float: right;}
 
 #footer  
 {
@@ -1244,3 +1245,169 @@ footer {
 	.bx_sitemap {
 		display: none !important;
 	}
+	  /* === Изоляция стилей от CMS === */
+  .ee-wrapper {
+    --ee-blue: #3b82f6;
+    --ee-blue-dark: #2563eb;
+    --ee-green: #10b981;
+    --ee-purple: #8b5cf6;
+    --ee-red: #ef4444;
+    --ee-text-main: #1e293b;
+    --ee-text-muted: #64748b;
+    --ee-bg-light: #f8fafc;
+    --ee-bg-white: #ffffff;
+    --ee-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --ee-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --ee-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+    --ee-radius: 14px;
+    --ee-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--ee-text-main);
+    line-height: 1.6;
+    background: var(--ee-bg-light);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+  .ee-wrapper *, .ee-wrapper *::before, .ee-wrapper *::after { box-sizing: inherit; }
+
+  /* === Секции === */
+  .ee-section {
+    background: var(--ee-bg-white);
+    border-radius: var(--ee-radius);
+    padding: 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--ee-shadow-md);
+    transition: var(--ee-transition);
+  }
+  .ee-section:hover { box-shadow: var(--ee-shadow-lg); }
+
+  .ee-section__title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 24px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ee-text-main);
+  }
+  .ee-section__title svg { width: 24px; height: 24px; color: var(--ee-blue); flex-shrink: 0; }
+
+  .ee-grid { display: grid; gap: 24px; }
+  .ee-grid--2col { grid-template-columns: 1fr 1fr; }
+  .ee-grid--auto { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+  /* === О компании === */
+  .ee-about__desc { font-size: 15px; margin-bottom: 18px; }
+  .ee-about__list { list-style: none; padding: 0; margin: 0 0 16px 0; }
+  .ee-about__list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: var(--ee-text-muted);
+    font-size: 14px;
+  }
+  .ee-about__list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--ee-blue);
+    font-weight: bold;
+  }
+  .ee-stats {
+    background: var(--ee-bg-light);
+    padding: 24px;
+    border-radius: 12px;
+  }
+  .ee-stats__title { margin: 0 0 20px 0; font-size: 18px; font-weight: 600; }
+  .ee-stats__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .ee-stat__val { font-size: 26px; font-weight: 800; color: var(--ee-blue); line-height: 1.2; }
+  .ee-stat__label { font-size: 13px; color: var(--ee-text-muted); margin-top: 4px; }
+
+  /* === Карточки продуктов === */
+  .ee-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--ee-bg-white);
+    transition: var(--ee-transition);
+  }
+  .ee-card:hover { transform: translateY(-6px); box-shadow: var(--ee-shadow-lg); }
+  .ee-card__header {
+    height: 120px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  .ee-card__header--blue { background: linear-gradient(135deg, var(--ee-blue), var(--ee-blue-dark)); }
+  .ee-card__header--green { background: linear-gradient(135deg, var(--ee-green), #059669); }
+  .ee-card__header--purple { background: linear-gradient(135deg, var(--ee-purple), #7c3aed); }
+  .ee-badge {
+    background: rgba(255,255,255,0.95);
+    color: currentColor;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    backdrop-filter: blur(4px);
+  }
+  .ee-card__body { padding: 18px; }
+  .ee-card__title { margin: 0 0 8px 0; font-size: 17px; font-weight: 600; }
+  .ee-card__desc { margin: 0 0 14px 0; color: var(--ee-text-muted); font-size: 13px; }
+  .ee-card__footer { display: flex; justify-content: space-between; align-items: center; }
+  .ee-card__time { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ee-text-muted); }
+  .ee-card__time svg { width: 14px; height: 14px; }
+  .ee-card__link { font-size: 13px; color: var(--ee-blue); text-decoration: none; font-weight: 500; transition: var(--ee-transition); }
+  .ee-card__link:hover { color: var(--ee-blue-dark); }
+
+  /* === Преимущества === */
+  .ee-adv { text-align: center; padding: 20px 10px; }
+  .ee-adv__icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+    box-shadow: var(--ee-shadow-sm);
+  }
+  .ee-adv__icon svg { width: 24px; height: 24px; fill: white; }
+  .ee-adv__title { margin: 0 0 6px 0; font-size: 16px; font-weight: 600; }
+  .ee-adv__desc { margin: 0; font-size: 13px; color: var(--ee-text-muted); }
+
+  /* === CTA === */
+  .ee-cta {
+    background: linear-gradient(135deg, var(--ee-blue), var(--ee-blue-dark));
+    color: white;
+    text-align: center;
+    padding: 48px 32px;
+    border-radius: var(--ee-radius);
+  }
+  .ee-cta__title { margin: 0 0 12px 0; font-size: 28px; font-weight: 800; }
+  .ee-cta__text { margin: 0 0 28px 0; font-size: 16px; opacity: 0.9; }
+  .ee-cta__buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .ee-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--ee-transition);
+    cursor: pointer;
+  }
+  .ee-btn--primary { background: white; color: var(--ee-blue); border: 2px solid white; }
+  .ee-btn--primary:hover { background: #f1f5f9; transform: translateY(-2px); box-shadow: var(--ee-shadow-md); }
+  .ee-btn--outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.4); }
+  .ee-btn--outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* === Адаптивность === */
+  @media (max-width: 900px) {
+    .ee-grid--2col { grid-template-columns: 1fr; }
+    .ee-section { padding: 24px; }
+  }
+  @media (max-width: 600px) {
+    .ee-wrapper { padding: 20px 16px; }
+    .ee-grid--auto { grid-template-columns: 1fr; }
+    .ee-cta__title { font-size: 24px; }
+    .ee-cta__buttons { flex-direction: column; }
+  }
