@@ -1,5 +1,5 @@
 // calculateScore.test.js
-// Функция, которую тестируем (прямо в файле теста)
+// Функция, которую тестируем
 function calculateQuestionScore(question, selectedAnswers) {
     const correctAnswers = question.correct;
     const isMultiple = question.is_multiple;
@@ -32,10 +32,7 @@ function calculateQuestionScore(question, selectedAnswers) {
     return Math.max(0, score);
 }
 
-// ============================================
-// ТЕСТЫ
-// ============================================
-
+// Тесты
 describe('Функция подсчёта баллов за вопрос', () => {
     
     test('Одиночный выбор: правильный ответ даёт 1 балл', () => {
